@@ -31,5 +31,13 @@ public class DeckViewModel extends ViewModel {
             return;
 
         requested.set(true);
+        mApi.RandomDeck(
+                (cards) -> {
+                    mCards.postValue(cards);
+                    requested.set(false);
+                },
+                () -> {
+                    requested.set(false);
+                });
     }
 }
