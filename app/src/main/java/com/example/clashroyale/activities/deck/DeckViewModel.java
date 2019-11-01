@@ -1,5 +1,8 @@
 package com.example.clashroyale.activities.deck;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableDouble;
 import androidx.lifecycle.LiveData;
@@ -26,6 +29,7 @@ public class DeckViewModel extends ViewModel {
         mApi = api;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void requestDeck() {
         if (requested.get())
             return;
@@ -35,6 +39,10 @@ public class DeckViewModel extends ViewModel {
                 (cards) -> {
                     mCards.postValue(cards);
                     requested.set(false);
+                    averageElixir.set(cards.stream()
+                            .mapToInt((card) -> card.elixirCost)
+                            .average()
+                            .getAsDouble());
                 },
                 () -> {
                     requested.set(false);
