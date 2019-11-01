@@ -10,4 +10,5 @@
     <color name="epic">#BE1EF2</color>
     <color name="legendary">#2EFFD0</color>
     <color name="black">#000</color>
+    <color name="text_shadow">#000</color>
 </resources>

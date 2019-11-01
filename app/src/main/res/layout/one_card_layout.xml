@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="112dp"
@@ -24,100 +24,99 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2"
-            android:textColor="@color/white"
-            android:fontFamily="@font/supercell_magic_webfont"
-            android:layout_marginTop="13dp"
             android:layout_marginLeft="13dp"
-            android:textSize="10sp"
-            android:shadowColor="@color/black"
+            android:layout_marginTop="13dp"
+            android:fontFamily="@font/supercell_magic_webfont"
+            android:shadowColor="@color/text_shadow"
             android:shadowDx="0"
             android:shadowDy="2"
-            android:shadowRadius="8" />
+            android:shadowRadius="8"
+            android:text="2"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
 
     </RelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Knight"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/supercell_magic_webfont"
+        android:text="Knight"
         android:textColor="@color/black"
-        android:textSize="20sp"
-        />
+        android:textSize="20sp" />
 
     <RelativeLayout
         android:layout_width="270dp"
         android:layout_height="64dp"
-        android:background="@color/epic"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="24dp">
+        android:layout_marginTop="24dp"
+        android:background="@color/epic">
 
         <TextView
             android:id="@+id/text_rarity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="14dp"
+            android:fontFamily="@font/supercell_magic_webfont"
             android:text="@string/rarity"
             android:textColor="@color/white"
-            android:layout_marginTop="14dp"
-            android:layout_marginLeft="8dp"
-            android:fontFamily="@font/supercell_magic_webfont"
             android:textSize="10sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Epic"
-            android:textColor="@color/white"
             android:layout_below="@id/text_rarity"
-            android:layout_marginTop="1dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginTop="1dp"
             android:fontFamily="@font/supercell_magic_webfont"
-            android:textSize="10sp"
-            android:shadowColor="@color/black"
+            android:shadowColor="@color/text_shadow"
             android:shadowDx="0"
             android:shadowDy="2"
-            android:shadowRadius="8" />
+            android:shadowRadius="8"
+            android:text="Epic"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
 
         <TextView
             android:id="@+id/text_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/type"
-            android:textColor="@color/white"
             android:layout_alignParentRight="true"
             android:layout_marginTop="14dp"
             android:layout_marginRight="86dp"
             android:fontFamily="@font/supercell_magic_webfont"
+            android:text="@string/type"
+            android:textColor="@color/white"
             android:textSize="10sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Military"
-            android:textColor="@color/white"
             android:layout_below="@id/text_type"
             android:layout_alignLeft="@id/text_type"
             android:layout_marginTop="1dp"
             android:fontFamily="@font/supercell_magic_webfont"
-            android:textSize="10sp"
-            android:shadowColor="@color/black"
+            android:shadowColor="@color/text_shadow"
             android:shadowDx="0"
             android:shadowDy="2"
-            android:shadowRadius="8" />
+            android:shadowRadius="8"
+            android:text="Military"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
 
     </RelativeLayout>
 
     <TextView
         android:layout_width="270dp"
         android:layout_height="75dp"
-        android:text="@string/card_description"
-        android:textColor="@color/black"
-        android:fontFamily="@font/supercell_magic_webfont"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="24dp"
+        android:fontFamily="@font/supercell_magic_webfont"
+        android:text="@string/card_description"
+        android:textColor="@color/black"
         android:textSize="10sp" />
 
 </LinearLayout>
