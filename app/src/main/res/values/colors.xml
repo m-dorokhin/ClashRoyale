@@ -5,4 +5,9 @@
     <color name="colorAccent">#D81B60</color>
     <color name="average_elixir_cost">#EF80EA</color>
     <color name="white">#FFF</color>
+    <color name="common">#9B9B9B</color>
+    <color name="rare">#F5A623</color>
+    <color name="epic">#BE1EF2</color>
+    <color name="legendary">#2EFFD0</color>
+    <color name="black">#000</color>
 </resources>
