@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
+
         <variable
             name="deck"
             type="com.example.clashroyale.activities.deck.DeckViewModel" />
@@ -61,7 +63,7 @@
                         android:shadowDx="0"
                         android:shadowDy="1"
                         android:shadowRadius="4"
-                        android:text="2"
+                        android:text="@{Double.toString(deck.averageElixir)}"
                         android:textColor="@color/average_elixir_cost"
                         android:textSize="10sp" />
 
@@ -80,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:visibility="visible" />
+                android:visibility="@{deck.requested ? View.VISIBLE: View.INVISIBLE}" />
 
         </FrameLayout>
 
@@ -89,7 +91,7 @@
             android:layout_height="44dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="46dp"
-            android:background="@drawable/button_enabled"
+            android:background="@{deck.requested ? @drawable/button_disabled: @drawable/button_enabled}"
             android:fontFamily="@font/supercell_magic_webfont"
             android:shadowColor="@color/text_shadow"
             android:shadowDx="0"
@@ -97,7 +99,8 @@
             android:shadowRadius="8"
             android:text="@string/random_deck"
             android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:onClick="@{(View) -> deck.requestDeck()}"/>
 
     </LinearLayout>
 </layout>
