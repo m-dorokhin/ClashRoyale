@@ -1,94 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activities.deck.DeckActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout
-        android:layout_width="302dp"
-        android:layout_height="278dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="48dp"
-        android:background="@drawable/background">
+    <data>
+        <variable
+            name="deck"
+            type="com.example.clashroyale.activities.deck.DeckViewModel" />
+    </data>
 
-        <RelativeLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activities.deck.DeckActivity">
+
+        <FrameLayout
             android:layout_width="302dp"
-            android:layout_height="278dp">
+            android:layout_height="278dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="48dp"
+            android:background="@drawable/background">
 
-            <GridLayout
+            <RelativeLayout
+                android:layout_width="302dp"
+                android:layout_height="278dp">
+
+                <GridLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="30dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/average_elixir_lable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:fontFamily="@font/supercell_magic_webfont"
+                        android:shadowColor="@color/text_shadow"
+                        android:shadowDx="0"
+                        android:shadowDy="1"
+                        android:shadowRadius="4"
+                        android:text="@string/average_elixir_cost"
+                        android:textColor="@color/average_elixir_cost"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/average_elixir"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/supercell_magic_webfont"
+                        android:shadowColor="@color/text_shadow"
+                        android:shadowDx="0"
+                        android:shadowDy="1"
+                        android:shadowRadius="4"
+                        android:text="2"
+                        android:textColor="@color/average_elixir_cost"
+                        android:textSize="10sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/elixir" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="?android:attr/progressBarStyleSmall"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="visible" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="30dp"
-                android:orientation="horizontal">
+        </FrameLayout>
 
-                <TextView
-                    android:id="@+id/average_elixir_lable"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="4dp"
-                    android:fontFamily="@font/supercell_magic_webfont"
-                    android:shadowColor="@color/text_shadow"
-                    android:shadowDx="0"
-                    android:shadowDy="1"
-                    android:shadowRadius="4"
-                    android:text="@string/average_elixir_cost"
-                    android:textColor="@color/average_elixir_cost"
-                    android:textSize="10sp" />
+        <Button
+            android:layout_width="220dp"
+            android:layout_height="44dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="46dp"
+            android:background="@drawable/button_enabled"
+            android:fontFamily="@font/supercell_magic_webfont"
+            android:shadowColor="@color/text_shadow"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="8"
+            android:text="@string/random_deck"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
 
-                <TextView
-                    android:id="@+id/average_elixir"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/supercell_magic_webfont"
-                    android:shadowColor="@color/text_shadow"
-                    android:shadowDx="0"
-                    android:shadowDy="1"
-                    android:shadowRadius="4"
-                    android:text="2"
-                    android:textColor="@color/average_elixir_cost"
-                    android:textSize="10sp" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/elixir" />
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            style="?android:attr/progressBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="visible" />
-
-    </FrameLayout>
-
-    <Button
-        android:layout_width="220dp"
-        android:layout_height="44dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="46dp"
-        android:background="@drawable/button_enabled"
-        android:fontFamily="@font/supercell_magic_webfont"
-        android:shadowColor="@color/text_shadow"
-        android:shadowDx="0"
-        android:shadowDy="2"
-        android:shadowRadius="8"
-        android:text="@string/random_deck"
-        android:textColor="@color/white"
-        android:textSize="14sp" />
-
-</LinearLayout>
+    </LinearLayout>
+</layout>
