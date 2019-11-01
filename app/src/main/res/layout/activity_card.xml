@@ -5,6 +5,6 @@
     android:id="@+id/card_flipper"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CardActivity">
+    tools:context=".activities.card.CardActivity">
 
 </ViewFlipper>

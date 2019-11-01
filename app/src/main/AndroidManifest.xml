@@ -10,8 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CardActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.card.CardActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".activities.deck.DeckActivity" />
+        </activity>
+        <activity android:name=".activities.deck.DeckActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
