@@ -8,7 +8,7 @@ import java.util.List;
 
 public class DeckBindingAdapters {
     @BindingAdapter({"app:items"})
-    public static void loadImage(DeckRecycler view, List<Card> items) {
+    public static void setItems(DeckRecycler view, List<Card> items) {
         view.getAdapter().setItems(items);
     }
 }

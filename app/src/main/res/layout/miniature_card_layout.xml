@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="card"
+            type="com.example.clashroyale.api.models.Card" />
+    </data>
+<RelativeLayout
+    android:layout_width="64dp"
+    android:layout_height="82dp">
+
+    <!-- TODO: Добавить предварительную загрузку картинок в кеш -->
+    <ImageView
+        android:layout_width="59dp"
+        android:layout_height="73dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        app:url='@{"http://www.clashapi.xyz/images/cards/"+card.idName+".png"}' />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/small_drop" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:fontFamily="@font/supercell_magic_webfont"
+        android:shadowColor="@color/text_shadow"
+        android:shadowDx="0"
+        android:shadowDy="2"
+        android:shadowRadius="8"
+        android:text="@{Integer.toString(card.elixirCost)}"
+        android:textColor="@color/white" />
+
+</RelativeLayout>
+</layout>

@@ -1,40 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data>
-        <variable
-            name="card"
-            type="com.example.clashroyale.api.models.Card" />
-    </data>
-<RelativeLayout
-    android:layout_width="64dp"
-    android:layout_height="82dp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <!-- TODO: Добавить предварительную загрузку картинок в кеш -->
-    <ImageView
-        android:layout_width="59dp"
-        android:layout_height="73dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        app:url='@{"http://www.clashapi.xyz/images/cards/"+card.idName+".png"}' />
+    <RelativeLayout
+        android:layout_width="112dp"
+        android:layout_height="137dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="12dp">
 
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="124dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/small_drop" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/small_drop_elixir" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="13dp"
+            android:fontFamily="@font/supercell_magic_webfont"
+            android:shadowColor="@color/text_shadow"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="8"
+            android:text="2"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+    </RelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/supercell_magic_webfont"
-        android:shadowColor="@color/text_shadow"
-        android:shadowDx="0"
-        android:shadowDy="2"
-        android:shadowRadius="8"
-        android:text="@{Integer.toString(card.elixirCost)}"
-        android:textColor="@color/white" />
+        android:text="Knight"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
 
-</RelativeLayout>
-</layout>
+    <RelativeLayout
+        android:layout_width="270dp"
+        android:layout_height="64dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:background="@color/epic">
+
+        <TextView
+            android:id="@+id/text_rarity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="14dp"
+            android:fontFamily="@font/supercell_magic_webfont"
+            android:text="@string/rarity"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_rarity"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="1dp"
+            android:fontFamily="@font/supercell_magic_webfont"
+            android:shadowColor="@color/text_shadow"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="8"
+            android:text="Epic"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/text_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="14dp"
+            android:layout_marginRight="86dp"
+            android:fontFamily="@font/supercell_magic_webfont"
+            android:text="@string/type"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_type"
+            android:layout_alignLeft="@id/text_type"
+            android:layout_marginTop="1dp"
+            android:fontFamily="@font/supercell_magic_webfont"
+            android:shadowColor="@color/text_shadow"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="8"
+            android:text="Military"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="270dp"
+        android:layout_height="75dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/supercell_magic_webfont"
+        android:text="@string/card_description"
+        android:textColor="@color/black"
+        android:textSize="10sp" />
+
+</LinearLayout>

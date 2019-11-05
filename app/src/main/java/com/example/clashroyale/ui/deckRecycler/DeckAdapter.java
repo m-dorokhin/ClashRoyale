@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.clashroyale.R;
 import com.example.clashroyale.api.models.Card;
-import com.example.clashroyale.databinding.CardLayoutBinding;
+import com.example.clashroyale.databinding.MiniatureCardLayoutBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +27,9 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final CardLayoutBinding mBinding;
+        private final MiniatureCardLayoutBinding mBinding;
 
-        public ViewHolder(@NonNull CardLayoutBinding binding) {
+        public ViewHolder(@NonNull MiniatureCardLayoutBinding binding) {
             super(binding.getRoot());
             mBinding = binding;
         }
@@ -44,8 +44,8 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        CardLayoutBinding binding = DataBindingUtil
-                .inflate(inflater, R.layout.card_layout, parent, false);
+        MiniatureCardLayoutBinding binding = DataBindingUtil
+                .inflate(inflater, R.layout.miniature_card_layout, parent, false);
         return new ViewHolder(binding);
     }
 
