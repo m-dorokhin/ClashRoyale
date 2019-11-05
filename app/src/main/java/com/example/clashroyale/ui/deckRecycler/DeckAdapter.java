@@ -1,4 +1,4 @@
-package com.example.clashroyale.activities.deck;
+package com.example.clashroyale.ui.deckRecycler;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;

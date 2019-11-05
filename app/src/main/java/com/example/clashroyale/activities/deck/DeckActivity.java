@@ -14,8 +14,9 @@ import com.example.clashroyale.activities.ViewModelFactory;
 import com.example.clashroyale.api.models.Card;
 import com.example.clashroyale.application.App;
 import com.example.clashroyale.databinding.ActivityDeckBinding;
+import com.example.clashroyale.ui.deckRecycler.DeckAdapter;
+import com.example.clashroyale.ui.deckRecycler.DeckRecycler;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -37,16 +38,13 @@ public class DeckActivity extends AppCompatActivity {
                 .setContentView(this, R.layout.activity_deck);
         binding.setDeck(deckViewModel);
 
-        RecyclerView deckRecycler = findViewById(R.id.deck_recycler);
-        final DeckAdapter adapter = new DeckAdapter();
-        deckRecycler.setAdapter(adapter);
+        DeckRecycler deckRecycler = findViewById(R.id.deck_recycler);
         deckViewModel.getCards().observe(this, new Observer<List<Card>>() {
             @Override
             public void onChanged(List<Card> dayWeathers) {
+                DeckAdapter adapter = deckRecycler.getAdapter();
                 adapter.setItems(dayWeathers);
             }
         });
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
-        deckRecycler.setLayoutManager(layoutManager);
     }
 }
