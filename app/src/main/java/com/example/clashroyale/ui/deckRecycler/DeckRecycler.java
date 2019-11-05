@@ -40,4 +40,8 @@ public class DeckRecycler extends RecyclerView {
     public DeckAdapter getAdapter() {
         return (DeckAdapter) super.getAdapter();
     }
+
+    public void setOnClickItemListener(@Nullable OnClickItemListener listener) {
+        this.getAdapter().setOnClickItemListener(listener);
+    }
 }

@@ -11,4 +11,9 @@ public class DeckBindingAdapters {
     public static void setItems(DeckRecycler view, List<Card> items) {
         view.getAdapter().setItems(items);
     }
+
+    @BindingAdapter({"app:onClickItem"})
+    public static void setOnClickItemListener(DeckRecycler view, OnClickItemListener listener) {
+        view.getAdapter().setOnClickItemListener(listener);
+    }
 }

@@ -6,6 +6,7 @@
     <data>
 
         <import type="android.view.View" />
+        <import type="android.util.Log" />
 
         <variable
             name="deck"
@@ -35,7 +36,8 @@
                     android:layout_height="170dp"
                     android:layout_marginLeft="17dp"
                     android:layout_marginTop="32dp"
-                    app:items="@{deck.cards}" />
+                    app:items="@{deck.cards}"
+                    app:onClickItem='@{(View, position) -> Log.i("activity_deck", "it is clicked on " + position)}' />
 
                 <LinearLayout
                     android:layout_width="wrap_content"

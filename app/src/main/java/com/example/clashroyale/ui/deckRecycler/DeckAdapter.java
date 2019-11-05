@@ -1,9 +1,11 @@
 package com.example.clashroyale.ui.deckRecycler;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +18,12 @@ import java.util.List;
 
 public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
     private List<Card> mItems;
+    private OnClickItemListener mOnClickItemListener;
+
+    public void setOnClickItemListener(@Nullable OnClickItemListener mOnClickItemListener) {
+        this.mOnClickItemListener = mOnClickItemListener;
+        notifyDataSetChanged();
+    }
 
     public void setItems(List<Card> mItems) {
         this.mItems = mItems;
@@ -38,6 +46,10 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
             mBinding.setCard(card);
             mBinding.executePendingBindings();
         }
+
+        public void setOnClickItemListener(View.OnClickListener listener) {
+            mBinding.getRoot().setOnClickListener(listener);
+        }
     }
 
     @NonNull
@@ -52,6 +64,9 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bind(mItems.get(position));
+
+        if (mOnClickItemListener != null)
+            holder.setOnClickItemListener((view) -> mOnClickItemListener.onClickItem(view, position));
     }
 
     @Override
