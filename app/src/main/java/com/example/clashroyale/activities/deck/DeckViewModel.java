@@ -5,25 +5,21 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableDouble;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
+import androidx.databinding.ObservableField;
 import androidx.lifecycle.ViewModel;
 
 import com.example.clashroyale.api.Api;
 import com.example.clashroyale.api.models.Card;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DeckViewModel extends ViewModel {
     private final Api mApi;
 
-    private final MutableLiveData<List<Card>> mCards = new MutableLiveData<>();
+    public final ObservableField<List<Card>> cards = new ObservableField<>(new ArrayList<>());
     public final ObservableBoolean requested = new ObservableBoolean(false);
     public final ObservableDouble averageElixir = new ObservableDouble(0);
-
-    public LiveData<List<Card>> getCards() {
-        return mCards;
-    }
 
     public DeckViewModel(Api api) {
         mApi = api;
@@ -36,10 +32,10 @@ public class DeckViewModel extends ViewModel {
 
         requested.set(true);
         mApi.RandomDeck(
-                (cards) -> {
-                    mCards.postValue(cards);
+                (receivedCards) -> {
+                    cards.set(receivedCards);
                     requested.set(false);
-                    averageElixir.set(cards.stream()
+                    averageElixir.set(receivedCards.stream()
                             .mapToInt((card) -> card.elixirCost)
                             .average()
                             .getAsDouble());

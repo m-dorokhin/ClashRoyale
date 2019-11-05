@@ -37,14 +37,5 @@ public class DeckActivity extends AppCompatActivity {
         ActivityDeckBinding binding = DataBindingUtil
                 .setContentView(this, R.layout.activity_deck);
         binding.setDeck(deckViewModel);
-
-        DeckRecycler deckRecycler = findViewById(R.id.deck_recycler);
-        deckViewModel.getCards().observe(this, new Observer<List<Card>>() {
-            @Override
-            public void onChanged(List<Card> dayWeathers) {
-                DeckAdapter adapter = deckRecycler.getAdapter();
-                adapter.setItems(dayWeathers);
-            }
-        });
     }
 }
