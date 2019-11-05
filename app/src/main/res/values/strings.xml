@@ -2,7 +2,6 @@
     <string name="app_name">Clash Royale</string>
     <string name="random_deck">Random Deck</string>
     <string name="average_elixir_cost">Average Elixir cost: </string>
-    <string name="card_description">A tough melee fighter. The Barbarian\'s handsome, cultured cousin. Rumor has it that he was knighted based on the sheer awesomeness of his mustache alone.</string>
     <string name="rarity">Rarity:</string>
     <string name="type">Type:</string>
 </resources>

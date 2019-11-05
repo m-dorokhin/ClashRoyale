@@ -8,23 +8,4 @@
     android:inAnimation="@anim/flip_in_left_to_right"
     android:outAnimation="@anim/flip_out_left_to_right"
     tools:context=".activities.card.CardActivity">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#F00"
-        android:text="1" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#0F0"
-        android:text="2" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#00F"
-        android:text="3" />
-
 </com.example.clashroyale.ui.cardFlipper.CardFlipper>

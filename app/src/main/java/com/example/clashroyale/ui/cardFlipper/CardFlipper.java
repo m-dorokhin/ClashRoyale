@@ -3,15 +3,25 @@ package com.example.clashroyale.ui.cardFlipper;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ViewFlipper;
 
+import androidx.databinding.DataBindingUtil;
+
 import com.example.clashroyale.R;
+import com.example.clashroyale.api.models.Card;
+import com.example.clashroyale.databinding.CardLayoutBinding;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class CardFlipper extends ViewFlipper {
     private float fromPosition;
+    private List<Card> mItems;
+    private List<CardLayoutBinding> mBindings;
 
     @SuppressLint("ClickableViewAccessibility")
     public CardFlipper(Context context) {
@@ -23,6 +33,23 @@ public class CardFlipper extends ViewFlipper {
     public CardFlipper(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setOnTouchListener(this::onTouch);
+    }
+
+    // TODO: Переделать пересоздание биндингов на их переиспользование, возможно вынести эту логику в отдельный класс
+    public void setItems(List<Card> items) {
+        this.removeAllViews();
+
+        mItems = items;
+        mBindings = new LinkedList<>();
+        LayoutInflater inflater = LayoutInflater.from(this.getContext());
+        for(Card item: items) {
+            CardLayoutBinding binding = DataBindingUtil
+                    .inflate(inflater, R.layout.card_layout, this, false);
+            binding.setCard(item);
+            binding.executePendingBindings();
+            mBindings.add(binding);
+            this.addView(binding.getRoot());
+        }
     }
 
     public boolean onTouch(View view, MotionEvent event) {
