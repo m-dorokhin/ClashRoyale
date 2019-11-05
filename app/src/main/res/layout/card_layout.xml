@@ -90,7 +90,7 @@
                 android:shadowRadius="8"
                 android:text="@{card.rarity}"
                 android:textColor="@color/white"
-                android:textSize="10sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/text_type"
@@ -117,7 +117,7 @@
                 android:shadowRadius="8"
                 android:text="@{card.type}"
                 android:textColor="@color/white"
-                android:textSize="10sp" />
+                android:textSize="14sp" />
 
         </RelativeLayout>
 
