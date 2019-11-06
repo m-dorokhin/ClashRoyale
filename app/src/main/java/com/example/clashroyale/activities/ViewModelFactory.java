@@ -1,5 +1,6 @@
 package com.example.clashroyale.activities;
 
+import android.app.Application;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -12,8 +13,10 @@ import com.example.clashroyale.api.Api;
 
 public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     private final Api mApi;
+    private final Application mApplication;
 
-    public ViewModelFactory(Api api) {
+    public ViewModelFactory(Application Application, Api api) {
+        mApplication = Application;
         mApi = api;
     }
 
@@ -21,7 +24,7 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass == DeckViewModel.class)
-            return (T) new DeckViewModel(mApi);
+            return (T) new DeckViewModel(mApplication, mApi);
 
         if (modelClass == CardViewModel.class)
             return (T) new CardViewModel(mApi);

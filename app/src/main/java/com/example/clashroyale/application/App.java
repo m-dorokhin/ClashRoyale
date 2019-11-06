@@ -2,6 +2,8 @@ package com.example.clashroyale.application;
 
 import android.app.Application;
 
+import com.example.clashroyale.activities.ActivityModule;
+
 public class App extends Application {
     private static AppComponent component;
 
@@ -13,6 +15,9 @@ public class App extends Application {
     public void onCreate()
     {
         super.onCreate();
-        component = DaggerAppComponent.create();
+        component = DaggerAppComponent
+                .builder()
+                .activityModule(new ActivityModule(this))
+                .build();
     }
 }
