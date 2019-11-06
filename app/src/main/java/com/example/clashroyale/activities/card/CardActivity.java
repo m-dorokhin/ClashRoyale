@@ -2,6 +2,8 @@ package com.example.clashroyale.activities.card;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -36,6 +38,14 @@ public class CardActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int cardNo = intent.getIntExtra(this.EXTRA_CARD_NO, 0);
         CardPager cardPager = findViewById(R.id.card_pager);
-        cardPager.setCurrentItem(cardNo);
+
+        // Так как сразу после загрухки карты ещё не подгрузились, подождём немного,
+        // а потом установим нужную карту
+        // TODO: Подчинить установку текущей карты в компаненте CardPager
+        new Handler().postDelayed(() -> {
+            Log.i("CardActivity", "CardActivity started with card no " + cardNo
+                    + " cards count " + cardPager.getAdapter().getCount());
+            cardPager.setCurrentItem(cardNo, false);
+        }, 100);
     }
 }
