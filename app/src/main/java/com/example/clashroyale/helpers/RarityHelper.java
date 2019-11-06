@@ -30,4 +30,25 @@ public class RarityHelper {
 //                throw new Exception("Unknown rarity: " + rarity);
         }
     }
+
+    public static int getRarityBacgroundResource(String rarity) {
+        switch (rarity) {
+            case COMMON:
+                return R.drawable.common_card_background;
+
+            case RARE:
+                return R.drawable.rare_card_background;
+
+            case EPIC:
+                return R.drawable.epic_card_background;
+
+            case LEGENDARY:
+                return R.drawable.legendary_card_background;
+
+            default:
+                Log.e("RarityHelper", "Unknown rarity: " + rarity);
+                return R.color.white;
+//                throw new Exception("Unknown rarity: " + rarity);
+        }
+    }
 }
