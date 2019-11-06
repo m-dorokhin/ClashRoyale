@@ -6,6 +6,9 @@ import androidx.annotation.NonNull;
 
 import com.example.clashroyale.api.Api;
 import com.example.clashroyale.application.App;
+import com.example.clashroyale.repositories.Repository;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -20,12 +23,18 @@ public class ActivityModule {
 
     @Provides
     public ViewModelFactory provideViewModelFactory(
-            @NonNull Application application, @NonNull Api api) {
-        return new ViewModelFactory(application, api);
+            @NonNull Application application, @NonNull Repository repository) {
+        return new ViewModelFactory(application, repository);
     }
 
     @Provides
     public Application provideApplication() {
         return mApplication;
+    }
+
+    @Singleton
+    @Provides
+    public Repository provideRepository(@NonNull Api api) {
+        return new Repository(api);
     }
 }

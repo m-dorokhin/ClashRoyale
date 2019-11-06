@@ -14,22 +14,32 @@ import androidx.databinding.ObservableField;
 import androidx.lifecycle.AndroidViewModel;
 
 import com.example.clashroyale.activities.card.CardActivity;
-import com.example.clashroyale.api.Api;
 import com.example.clashroyale.api.models.Card;
+import com.example.clashroyale.repositories.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DeckViewModel extends AndroidViewModel {
-    private final Api mApi;
+    private final Repository mRepository;
 
     public final ObservableField<List<Card>> cards = new ObservableField<>(new ArrayList<>());
     public final ObservableBoolean requested = new ObservableBoolean(false);
     public final ObservableDouble averageElixir = new ObservableDouble(0);
 
-    public DeckViewModel(@NonNull Application application, Api api) {
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public DeckViewModel(@NonNull Application application, Repository repository) {
         super(application);
-        mApi = api;
+        mRepository = repository;
+
+        List<Card> cachedCards = mRepository.getDeck();
+        cards.set(cachedCards);
+        if (cachedCards.size() > 0) {
+            averageElixir.set(cachedCards.stream()
+                    .mapToInt((card) -> card.elixirCost)
+                    .average()
+                    .getAsDouble());
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -38,7 +48,7 @@ public class DeckViewModel extends AndroidViewModel {
             return;
 
         requested.set(true);
-        mApi.RandomDeck(
+        mRepository.newDeck(
                 (receivedCards) -> {
                     cards.set(receivedCards);
                     requested.set(false);
