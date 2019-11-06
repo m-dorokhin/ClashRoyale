@@ -6,4 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.card.CardActivity">
+
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:tabBackground="@drawable/tab_selector"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="0dp" />
+
 </com.example.clashroyale.ui.cardPager.CardPager>
