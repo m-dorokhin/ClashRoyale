@@ -69,7 +69,7 @@
                         android:shadowDx="0"
                         android:shadowDy="1"
                         android:shadowRadius="4"
-                        android:text="@{Double.toString(deck.averageElixir)}"
+                        android:text='@{String.format("%.1f", deck.averageElixir)}'
                         android:textColor="@color/average_elixir_cost"
                         android:textSize="10sp" />
 
