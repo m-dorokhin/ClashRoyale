@@ -1,18 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.example.clashroyale.ui.cardPager.CardPager xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/card_pager"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.card.CardActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.tabs.TabLayout
+    <data>
+
+        <variable
+            name="cards"
+            type="com.example.clashroyale.activities.card.CardViewModel" />
+    </data>
+
+    <com.example.clashroyale.ui.cardPager.CardPager
+        android:id="@+id/card_pager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:tabBackground="@drawable/tab_selector"
-        app:tabGravity="center"
-        app:tabIndicatorHeight="0dp" />
+        android:layout_height="match_parent"
+        app:items="@{cards.cards}"
+        tools:context=".activities.card.CardActivity">
 
-</com.example.clashroyale.ui.cardPager.CardPager>
+        <com.google.android.material.tabs.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:tabBackground="@drawable/tab_selector"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp" />
+
+    </com.example.clashroyale.ui.cardPager.CardPager>
+</layout>
