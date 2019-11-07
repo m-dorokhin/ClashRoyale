@@ -39,6 +39,8 @@ public class DeckViewModel extends AndroidViewModel {
                     .mapToInt((card) -> card.elixirCost)
                     .average()
                     .getAsDouble());
+        } else {
+            requestDeck();
         }
     }
 
