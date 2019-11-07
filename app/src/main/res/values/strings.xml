@@ -4,4 +4,5 @@
     <string name="average_elixir_cost">Average Elixir cost: </string>
     <string name="rarity">Rarity:</string>
     <string name="type">Type:</string>
+    <string name="network_is_not_available">Network is not available.</string>
 </resources>

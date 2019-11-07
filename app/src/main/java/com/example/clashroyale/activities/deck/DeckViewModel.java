@@ -12,10 +12,13 @@ import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableDouble;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
+import com.example.clashroyale.R;
 import com.example.clashroyale.activities.card.CardActivity;
 import com.example.clashroyale.models.CardView;
 import com.example.clashroyale.repositories.Repository;
+import com.example.clashroyale.utilits.SingleLiveEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +29,12 @@ public class DeckViewModel extends AndroidViewModel {
     public final ObservableField<List<CardView>> cards = new ObservableField<>(new ArrayList<>());
     public final ObservableBoolean requested = new ObservableBoolean(false);
     public final ObservableDouble averageElixir = new ObservableDouble(0);
+
+    private final SingleLiveEvent<String> mSnackMessage = new SingleLiveEvent<>();
+
+    public LiveData<String> getSnackMessage() {
+        return mSnackMessage;
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public DeckViewModel(@NonNull Application application, Repository repository) {
@@ -63,6 +72,8 @@ public class DeckViewModel extends AndroidViewModel {
                             .getAsDouble());
                 },
                 () -> {
+                    mSnackMessage.setValue(getApplication()
+                            .getString(R.string.network_is_not_available));
                     requested.set(false);
                 });
     }
