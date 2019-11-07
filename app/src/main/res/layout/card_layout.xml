@@ -7,7 +7,7 @@
 
         <variable
             name="card"
-            type="com.example.clashroyale.api.models.Card" />
+            type="com.example.clashroyale.models.CardView" />
     </data>
 
     <LinearLayout

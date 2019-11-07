@@ -4,7 +4,7 @@
     <data>
         <variable
             name="card"
-            type="com.example.clashroyale.api.models.Card" />
+            type="com.example.clashroyale.models.CardView" />
     </data>
 <RelativeLayout
     android:layout_width="64dp"

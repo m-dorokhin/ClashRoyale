@@ -10,8 +10,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.clashroyale.R;
-import com.example.clashroyale.api.models.Card;
 import com.example.clashroyale.databinding.CardLayoutBinding;
+import com.example.clashroyale.models.CardView;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -19,10 +19,10 @@ import java.util.List;
 
 public class CardAdapter extends PagerAdapter {
     private final Context mContext;
-    private List<Card> mItems = new ArrayList<>();
+    private List<CardView> mItems = new ArrayList<>();
     private final List<CardLayoutBinding> mBindings = new LinkedList<>();
 
-    public void setItems(List<Card> items) {
+    public void setItems(List<CardView> items) {
         mItems = items;
         notifyDataSetChanged();
     }

@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.clashroyale.api.models.Card;
+import com.example.clashroyale.models.CardView;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class CardPager extends ViewPager {
         return (CardAdapter) super.getAdapter();
     }
 
-    public void setItems(List<Card> items) {
+    public void setItems(List<CardView> items) {
         this.getAdapter().setItems(items);
     }
 }

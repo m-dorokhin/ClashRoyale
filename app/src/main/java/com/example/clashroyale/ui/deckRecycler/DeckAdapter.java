@@ -12,12 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.clashroyale.R;
 import com.example.clashroyale.api.models.Card;
 import com.example.clashroyale.databinding.MiniatureCardLayoutBinding;
+import com.example.clashroyale.models.CardView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
-    private List<Card> mItems;
+    private List<CardView> mItems;
     private OnClickItemListener mOnClickItemListener;
 
     public void setOnClickItemListener(@Nullable OnClickItemListener mOnClickItemListener) {
@@ -25,7 +26,7 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
-    public void setItems(List<Card> mItems) {
+    public void setItems(List<CardView> mItems) {
         this.mItems = mItems;
         notifyDataSetChanged();
     }
@@ -42,7 +43,7 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
             mBinding = binding;
         }
 
-        public void bind(Card card) {
+        public void bind(CardView card) {
             mBinding.setCard(card);
             mBinding.executePendingBindings();
         }
