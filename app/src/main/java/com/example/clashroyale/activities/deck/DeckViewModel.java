@@ -48,6 +48,9 @@ public class DeckViewModel extends AndroidViewModel {
             return;
 
         requested.set(true);
+        cards.set(new ArrayList<>());
+        averageElixir.set(0);
+
         mRepository.newDeck(
                 (receivedCards) -> {
                     cards.set(receivedCards);
