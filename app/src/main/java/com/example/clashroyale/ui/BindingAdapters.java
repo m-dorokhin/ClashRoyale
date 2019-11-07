@@ -1,5 +1,6 @@
 package com.example.clashroyale.ui;
 
+import android.graphics.Bitmap;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -11,6 +12,11 @@ public class BindingAdapters {
     @BindingAdapter({"app:url"})
     public static void loadImage(ImageView view, String url) {
         Picasso.get().load(url).into(view);
+    }
+
+    @BindingAdapter({"app:bitmap"})
+    public static void setImage(ImageView view, Bitmap image) {
+        view.setImageBitmap(image);
     }
 
     @BindingAdapter({"app:set_background_resource"})

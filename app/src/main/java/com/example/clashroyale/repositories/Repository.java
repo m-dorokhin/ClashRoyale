@@ -16,23 +16,25 @@ import java.util.stream.Collectors;
 
 public class Repository {
     private final Api mApi;
+    private final ImageLoader mImageLoader;
 
     private List<CardView> mCache = new ArrayList<>();
 
-    public Repository(Api api) {
+    public Repository(Api api, ImageLoader imageLoader) {
         mApi = api;
+        mImageLoader = imageLoader;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void newDeck(@NonNull final ActionT<List<CardView>> callback, @NonNull final Action error) {
-        mCache = new ArrayList<>();
+            mCache = new ArrayList<>();
 
-        mApi.RandomDeck((cards) -> {
+            mApi.RandomDeck((cards) -> {
             mCache = cards.stream()
                     .map(card -> new CardView(card))
                     .collect(Collectors.toList());
 
-            callback.execute(mCache);
+            mImageLoader.load(mCache, callback);
         }, error);
     }
 

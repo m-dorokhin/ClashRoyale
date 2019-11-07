@@ -1,7 +1,5 @@
 package com.example.clashroyale.models;
 
-import android.graphics.Bitmap;
-
 import com.example.clashroyale.api.models.Card;
 
 public class CardView {
@@ -11,7 +9,6 @@ public class CardView {
     public String name;
     public String description;
     public int elixirCost;
-    public Bitmap image;
 
     public CardView() { }
 
@@ -22,5 +19,9 @@ public class CardView {
         this.name = card.name;
         this.description = card.description;
         this.elixirCost = card.elixirCost;
+    }
+
+    public String getImageUrl() {
+        return "http://www.clashapi.xyz/images/cards/" + this.idName + ".png";
     }
 }

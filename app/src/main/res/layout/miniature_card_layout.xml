@@ -10,13 +10,12 @@
     android:layout_width="64dp"
     android:layout_height="82dp">
 
-    <!-- TODO: Добавить предварительную загрузку картинок в кеш -->
     <ImageView
         android:layout_width="59dp"
         android:layout_height="73dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        app:url='@{"http://www.clashapi.xyz/images/cards/"+card.idName+".png"}' />
+        app:url="@{card.imageUrl}" />
 
 
     <ImageView

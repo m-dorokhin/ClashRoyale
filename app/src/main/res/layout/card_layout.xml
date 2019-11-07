@@ -26,7 +26,7 @@
                 android:layout_height="124dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                app:url='@{"http://www.clashapi.xyz/images/cards/"+card.idName+".png"}' />
+                app:url="@{card.imageUrl}" />
 
             <ImageView
                 android:layout_width="wrap_content"
