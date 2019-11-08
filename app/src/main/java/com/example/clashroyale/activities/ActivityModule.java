@@ -5,7 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 
 import com.example.clashroyale.application.App;
-import com.example.clashroyale.repositories.Repository;
+import com.example.clashroyale.services.Repository;
 
 import dagger.Module;
 import dagger.Provides;

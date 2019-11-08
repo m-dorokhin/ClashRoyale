@@ -4,7 +4,7 @@ import com.example.clashroyale.activities.ActivityModule;
 import com.example.clashroyale.activities.card.CardActivity;
 import com.example.clashroyale.activities.deck.DeckActivity;
 import com.example.clashroyale.api.ApiModule;
-import com.example.clashroyale.repositories.ServiceModule;
+import com.example.clashroyale.services.ServiceModule;
 
 import javax.inject.Singleton;
 

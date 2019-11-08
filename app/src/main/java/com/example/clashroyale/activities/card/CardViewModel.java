@@ -4,7 +4,7 @@ import androidx.databinding.ObservableField;
 import androidx.lifecycle.ViewModel;
 
 import com.example.clashroyale.models.CardView;
-import com.example.clashroyale.repositories.Repository;
+import com.example.clashroyale.services.Repository;
 
 import java.util.ArrayList;
 import java.util.List;

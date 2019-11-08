@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.clashroyale.activities.card.CardViewModel;
 import com.example.clashroyale.activities.deck.DeckViewModel;
-import com.example.clashroyale.repositories.Repository;
+import com.example.clashroyale.services.Repository;
 
 public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     private final Repository mRepository;

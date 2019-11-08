@@ -1,4 +1,4 @@
-package com.example.clashroyale.repositories;
+package com.example.clashroyale.services;
 
 import android.os.Build;
 import android.util.Log;

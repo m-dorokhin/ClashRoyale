@@ -17,7 +17,7 @@ import androidx.lifecycle.LiveData;
 import com.example.clashroyale.R;
 import com.example.clashroyale.activities.card.CardActivity;
 import com.example.clashroyale.models.CardView;
-import com.example.clashroyale.repositories.Repository;
+import com.example.clashroyale.services.Repository;
 import com.example.clashroyale.utilits.SingleLiveEvent;
 
 import java.util.ArrayList;
