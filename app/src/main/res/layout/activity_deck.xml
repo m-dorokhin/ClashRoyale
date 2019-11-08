@@ -97,7 +97,7 @@
             android:layout_height="44dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="46dp"
-            android:background="@{deck.requested ? @drawable/button_disabled: @drawable/button_enabled}"
+            android:background="@{(!deck.requested &amp;&amp; deck.netAvailable) ? @drawable/button_enabled: @drawable/button_disabled}"
             android:fontFamily="@font/supercell_magic_webfont"
             android:onClick="@{(View) -> deck.requestDeck()}"
             android:shadowColor="@color/text_shadow"

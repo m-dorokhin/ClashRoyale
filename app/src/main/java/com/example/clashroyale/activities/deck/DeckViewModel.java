@@ -3,6 +3,8 @@ package com.example.clashroyale.activities.deck;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.util.Log;
 
@@ -17,6 +19,7 @@ import androidx.lifecycle.LiveData;
 import com.example.clashroyale.R;
 import com.example.clashroyale.activities.card.CardActivity;
 import com.example.clashroyale.models.CardView;
+import com.example.clashroyale.services.NetStatusReceiver;
 import com.example.clashroyale.services.Repository;
 import com.example.clashroyale.utilits.SingleLiveEvent;
 
@@ -25,9 +28,11 @@ import java.util.List;
 
 public class DeckViewModel extends AndroidViewModel {
     private final Repository mRepository;
+    private final NetStatusReceiver mNetStatusReceiver;
 
     public final ObservableField<List<CardView>> cards = new ObservableField<>(new ArrayList<>());
     public final ObservableBoolean requested = new ObservableBoolean(false);
+    public final ObservableBoolean netAvailable = new ObservableBoolean(true);
     public final ObservableDouble averageElixir = new ObservableDouble(0);
 
     private final SingleLiveEvent<String> mSnackMessage = new SingleLiveEvent<>();
@@ -37,9 +42,28 @@ public class DeckViewModel extends AndroidViewModel {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public DeckViewModel(@NonNull Application application, Repository repository) {
+    public DeckViewModel(@NonNull Application application, Repository repository, NetStatusReceiver netStatusReceiver) {
         super(application);
         mRepository = repository;
+
+        mNetStatusReceiver = netStatusReceiver;
+        mNetStatusReceiver.setOnNetEnable(() -> {
+            if (!netAvailable.get()) {
+                mSnackMessage.setValue(getApplication()
+                        .getString(R.string.network_is_available));
+            }
+            netAvailable.set(true);
+        });
+        mNetStatusReceiver.setOnNetDisable(() -> {
+            if (netAvailable.get()) {
+                mSnackMessage.setValue(getApplication()
+                        .getString(R.string.network_is_not_available));
+            }
+            netAvailable.set(false);
+        });
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        application.registerReceiver(mNetStatusReceiver, filter);
 
         List<CardView> cachedCards = mRepository.getDeck();
         cards.set(cachedCards);
@@ -53,9 +77,15 @@ public class DeckViewModel extends AndroidViewModel {
         }
     }
 
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        getApplication().unregisterReceiver(mNetStatusReceiver);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void requestDeck() {
-        if (requested.get())
+        if (requested.get() || !netAvailable.get())
             return;
 
         requested.set(true);

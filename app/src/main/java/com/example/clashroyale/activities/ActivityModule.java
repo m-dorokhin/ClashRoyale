@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 
 import com.example.clashroyale.application.App;
+import com.example.clashroyale.services.NetStatusReceiver;
 import com.example.clashroyale.services.Repository;
 
 import dagger.Module;
@@ -20,8 +21,10 @@ public class ActivityModule {
 
     @Provides
     public ViewModelFactory provideViewModelFactory(
-            @NonNull Application application, @NonNull Repository repository) {
-        return new ViewModelFactory(application, repository);
+            @NonNull Application application,
+            @NonNull Repository repository,
+            @NonNull NetStatusReceiver netStatusReceiver) {
+        return new ViewModelFactory(application, repository, netStatusReceiver);
     }
 
     @Provides

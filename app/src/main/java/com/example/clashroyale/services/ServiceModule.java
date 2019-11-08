@@ -21,4 +21,9 @@ public class ServiceModule {
     public Repository provideRepository(@NonNull Api api, @NonNull ImageLoader imageLoader) {
         return new Repository(api, imageLoader);
     }
+
+    @Provides
+    public NetStatusReceiver provideNetStatusReceiver() {
+        return new NetStatusReceiver();
+    }
 }

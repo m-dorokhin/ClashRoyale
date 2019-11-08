@@ -11,15 +11,18 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.clashroyale.activities.card.CardViewModel;
 import com.example.clashroyale.activities.deck.DeckViewModel;
+import com.example.clashroyale.services.NetStatusReceiver;
 import com.example.clashroyale.services.Repository;
 
 public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     private final Repository mRepository;
     private final Application mApplication;
+    private final NetStatusReceiver mNetStatusReceiver;
 
-    public ViewModelFactory(Application Application, Repository repository) {
+    public ViewModelFactory(Application Application, Repository repository, NetStatusReceiver netStatusReceiver) {
         mApplication = Application;
         mRepository = repository;
+        mNetStatusReceiver = netStatusReceiver;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -27,7 +30,7 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass == DeckViewModel.class)
-            return (T) new DeckViewModel(mApplication, mRepository);
+            return (T) new DeckViewModel(mApplication, mRepository, mNetStatusReceiver);
 
         if (modelClass == CardViewModel.class)
             return (T) new CardViewModel(mRepository);
