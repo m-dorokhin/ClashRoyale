@@ -19,7 +19,10 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     private final Application mApplication;
     private final NetStatusReceiver mNetStatusReceiver;
 
-    public ViewModelFactory(Application Application, Repository repository, NetStatusReceiver netStatusReceiver) {
+    public ViewModelFactory(
+            Application Application,
+            Repository repository,
+            NetStatusReceiver netStatusReceiver) {
         mApplication = Application;
         mRepository = repository;
         mNetStatusReceiver = netStatusReceiver;

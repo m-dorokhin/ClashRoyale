@@ -42,11 +42,14 @@ public class DeckViewModel extends AndroidViewModel {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public DeckViewModel(@NonNull Application application, Repository repository, NetStatusReceiver netStatusReceiver) {
+    public DeckViewModel(
+            @NonNull Application application,
+            @NonNull Repository repository,
+            @NonNull NetStatusReceiver netStatusReceiver) {
         super(application);
         mRepository = repository;
-
         mNetStatusReceiver = netStatusReceiver;
+
         mNetStatusReceiver.setOnNetEnable(() -> {
             if (!netAvailable.get()) {
                 mSnackMessage.setValue(getApplication()

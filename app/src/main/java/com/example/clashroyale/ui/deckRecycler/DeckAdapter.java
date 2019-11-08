@@ -67,7 +67,8 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
         holder.bind(mItems.get(position));
 
         if (mOnClickItemListener != null)
-            holder.setOnClickItemListener((view) -> mOnClickItemListener.onClickItem(view, position));
+            holder.setOnClickItemListener(
+                    (view) -> mOnClickItemListener.onClickItem(view, position));
     }
 
     @Override

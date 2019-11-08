@@ -26,10 +26,12 @@ public class Repository {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void newDeck(@NonNull final ActionT<List<CardView>> callback, @NonNull final Action error) {
-            mCache = new ArrayList<>();
+    public void newDeck(
+            @NonNull final ActionT<List<CardView>> callback,
+            @NonNull final Action error) {
+        mCache = new ArrayList<>();
 
-            mApi.RandomDeck((cards) -> {
+        mApi.RandomDeck((cards) -> {
             mCache = cards.stream()
                     .map(card -> new CardView(card))
                     .collect(Collectors.toList());
