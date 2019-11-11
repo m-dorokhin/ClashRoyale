@@ -33,8 +33,6 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
 
     public void setOnClickItemListener(@Nullable OnClickItemListener mOnClickItemListener) {
         this.mOnClickItemListener = mOnClickItemListener;
-        notifyDataSetChanged();
-        this.notifyItemRemoved(1);
     }
 
     // Переменная в true указывает что анимация сбора карт запущена, а новая колода ещё на добавлена
