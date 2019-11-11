@@ -1,6 +1,7 @@
 package com.example.clashroyale.ui.deckRecycler;
 
 import android.content.Context;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,23 +19,52 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.clashroyale.R;
 import com.example.clashroyale.databinding.MiniatureCardLayoutBinding;
 import com.example.clashroyale.models.CardView;
+import com.example.clashroyale.utilits.Action;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
     private final Context mContext;
     private List<CardView> mItems;
     private OnClickItemListener mOnClickItemListener;
+    private final LinkedList<Action> mCollectCardsAnimations = new LinkedList<>();
 
     public void setOnClickItemListener(@Nullable OnClickItemListener mOnClickItemListener) {
         this.mOnClickItemListener = mOnClickItemListener;
         notifyDataSetChanged();
+        this.notifyItemRemoved(1);
     }
 
-    public void setItems(List<CardView> mItems) {
-        this.mItems = mItems;
-        notifyDataSetChanged();
+    // Переменная в true указывает что анимация сбора карт запущена, а новая колода ещё на добавлена
+    // И надо будет произвести отчистку RecycleView
+    // В false отчистку RecycleView проводить не надо, так как уже добавлена новая колода
+    private boolean clear = false;
+    public void setItems(List<CardView> items) {
+        // Если нет карт на экрани, то просто отобразим новую колоду
+        if (mCollectCardsAnimations.size() <= 0) {
+            this.mItems = items;
+            notifyDataSetChanged();
+            clear = false;
+            return;
+        }
+
+        // Если есть то покажим анимацию сбора карт
+        for(Action animation: mCollectCardsAnimations) {
+            animation.execute();
+        }
+        mCollectCardsAnimations.clear();
+
+        clear = true;
+        // Запустим отчистку RecyclerView с задержкой в 1 сек,
+        // что бы успела отыграть анимация сбора карт
+        new Handler().postDelayed(() -> {
+            if (clear) {
+                this.mItems = items;
+                notifyDataSetChanged();
+            }
+        }, 1000);
     }
 
     public DeckAdapter(Context context) {
@@ -59,7 +89,22 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
             mBinding.getRoot().setOnClickListener(listener);
         }
 
-        public void startAnimation(int position) {
+        public void startCollectCardsAnimation(int position) {
+            Animation animation = new TranslateAnimation(
+                    TranslateAnimation.RELATIVE_TO_SELF, 0,
+                    TranslateAnimation.RELATIVE_TO_SELF, 0,
+                    TranslateAnimation.RELATIVE_TO_SELF, 0,
+                    TranslateAnimation.RELATIVE_TO_SELF, 3
+            );
+            animation.setDuration(1000);
+            animation.setStartOffset(position * 50);
+            animation.setFillEnabled(true);
+            animation.setFillAfter(true);
+
+            mBinding.getRoot().startAnimation(animation);
+        }
+
+        public void startDealCardsAnimation(int position) {
             ImageView cardShirt = mBinding.getRoot().findViewById(R.id.card_shirt);
             cardShirt.setVisibility(View.VISIBLE);
 
@@ -147,7 +192,8 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
             holder.setOnClickItemListener(
                     (view) -> mOnClickItemListener.onClickItem(view, position));
 
-        holder.startAnimation(position);
+        holder.startDealCardsAnimation(position);
+        mCollectCardsAnimations.add(() -> holder.startCollectCardsAnimation(position));
     }
 
     @Override
