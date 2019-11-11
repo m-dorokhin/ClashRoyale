@@ -2,6 +2,7 @@ package com.example.clashroyale.ui.deckRecycler;
 
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +23,11 @@ import com.example.clashroyale.models.CardView;
 import com.example.clashroyale.utilits.Action;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
+public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> implements CardTouchHelperAdapter{
     private final Context mContext;
     private List<CardView> mItems;
     private OnClickItemListener mOnClickItemListener;
@@ -65,6 +67,24 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
         }, 1000);
     }
 
+    public void onItemDismiss(int position) {
+        Log.i("DeckAdapter", "item dismiss on position: " + position);
+    }
+
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(mItems, i, i+1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(mItems, i, i-1);
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition);
+        return true;
+    }
+
     public DeckAdapter(Context context) {
         mContext = context;
         mItems = new ArrayList<>();
@@ -87,7 +107,8 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
             mBinding.getRoot().setOnClickListener(listener);
         }
 
-        public void startCollectCardsAnimation(int position) {
+        public void startCollectCardsAnimation() {
+            int position = this.getAdapterPosition();
             Animation animation = new TranslateAnimation(
                     TranslateAnimation.RELATIVE_TO_SELF, 0,
                     TranslateAnimation.RELATIVE_TO_SELF, 0,
@@ -188,10 +209,10 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
 
         if (mOnClickItemListener != null)
             holder.setOnClickItemListener(
-                    (view) -> mOnClickItemListener.onClickItem(view, position));
+                    (view) -> mOnClickItemListener.onClickItem(view, holder.getAdapterPosition()));
 
         holder.startDealCardsAnimation(position);
-        mCollectCardsAnimations.add(() -> holder.startCollectCardsAnimation(position));
+        mCollectCardsAnimations.add(holder::startCollectCardsAnimation);
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class DeckRecycler extends RecyclerView {
@@ -33,6 +34,11 @@ public class DeckRecycler extends RecyclerView {
         this.setAdapter(new DeckAdapter(context));
         GridLayoutManager layoutManager = new GridLayoutManager(context, COLUMN_COUNT);
         this.setLayoutManager(layoutManager);
+
+        // Обработка drag and drop
+        ItemTouchHelper.Callback cardTouchCallback = new CardTouchCallback(this.getAdapter());
+        ItemTouchHelper touchHelper = new ItemTouchHelper(cardTouchCallback);
+        touchHelper.attachToRecyclerView(this);
     }
 
     @Nullable
