@@ -1,39 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="card"
             type="com.example.clashroyale.models.CardView" />
     </data>
-<RelativeLayout
-    android:layout_width="64dp"
-    android:layout_height="82dp">
 
-    <ImageView
-        android:layout_width="59dp"
-        android:layout_height="73dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        app:url="@{card.imageUrl}" />
+    <FrameLayout
+        android:layout_width="64dp"
+        android:layout_height="82dp">
+
+        <RelativeLayout
+            android:id="@+id/miniature_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="59dp"
+                android:layout_height="73dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                app:url="@{card.imageUrl}" />
 
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/small_drop" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/small_drop" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
-        android:fontFamily="@font/supercell_magic_webfont"
-        android:shadowColor="@color/text_shadow"
-        android:shadowDx="0"
-        android:shadowDy="2"
-        android:shadowRadius="8"
-        android:text="@{Integer.toString(card.elixirCost)}"
-        android:textColor="@color/white" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:fontFamily="@font/supercell_magic_webfont"
+                android:shadowColor="@color/text_shadow"
+                android:shadowDx="0"
+                android:shadowDy="2"
+                android:shadowRadius="8"
+                android:text="@{Integer.toString(card.elixirCost)}"
+                android:textColor="@color/white" />
 
-</RelativeLayout>
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/card_shirt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/card_shirt"
+            android:visibility="visible" />
+    </FrameLayout>
 </layout>

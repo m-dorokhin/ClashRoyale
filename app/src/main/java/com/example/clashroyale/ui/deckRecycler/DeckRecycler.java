@@ -14,23 +14,23 @@ public class DeckRecycler extends RecyclerView {
     public DeckRecycler(@NonNull Context context) {
         super(context);
 
-        this.setAdapter(new DeckAdapter());
-        GridLayoutManager layoutManager = new GridLayoutManager(context, COLUMN_COUNT);
-        this.setLayoutManager(layoutManager);
+        initilize(context);
     }
 
     public DeckRecycler(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
-        this.setAdapter(new DeckAdapter());
-        GridLayoutManager layoutManager = new GridLayoutManager(context, COLUMN_COUNT);
-        this.setLayoutManager(layoutManager);
+        initilize(context);
     }
 
     public DeckRecycler(@NonNull Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        this.setAdapter(new DeckAdapter());
+        initilize(context);
+    }
+
+    private void initilize(Context context) {
+        this.setAdapter(new DeckAdapter(context));
         GridLayoutManager layoutManager = new GridLayoutManager(context, COLUMN_COUNT);
         this.setLayoutManager(layoutManager);
     }
