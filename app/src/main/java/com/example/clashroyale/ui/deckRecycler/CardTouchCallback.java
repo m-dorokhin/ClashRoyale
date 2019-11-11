@@ -24,7 +24,7 @@ public class CardTouchCallback extends ItemTouchHelper.Callback {
     @Override
     public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
         int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN
-                | ItemTouchHelper.START | ItemTouchHelper.END;
+                | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
         int swipeFlags = 0;
         return makeMovementFlags(dragFlags, swipeFlags);
     }
