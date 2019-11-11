@@ -67,7 +67,7 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
             animationSet.addAnimation(getDistributionCardAnimation(position));
             animationSet.addAnimation(getTurnCardPart1Animation());
             animationSet.addAnimation(getTurnCardPart2Animation());
-            animationSet.setStartOffset(position * 100);
+            animationSet.setStartOffset(position * 50);
 
             mBinding.getRoot().startAnimation(animationSet);
         }
@@ -76,16 +76,16 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
             float posX = position % 4;
             float posY = position > 3 ? 1 : 0;
             // 168 = mBinding.getRoot().getWidth();
-            float fromXDelta = (float)(-1*posX-0.5)*168;
+            float fromXDelta = (float)(-1*posX-1)*168;
             // 215 = mBinding.getRoot().getHeight();
-            float fromYDelta = (float)(-1*posY-0.5)*215;
+            float fromYDelta = (float)(-1*posY-1)*215;
 
             Animation animation = new TranslateAnimation(
                     fromXDelta,
                     0,
                     fromYDelta,
                     0);
-            animation.setDuration(500);
+            animation.setDuration(400);
             return animation;
         }
 
@@ -96,8 +96,8 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
                     ScaleAnimation.RELATIVE_TO_SELF, 0.5f);
             animation.setFillEnabled(true);
             animation.setFillAfter(false);
-            animation.setDuration(500);
-            animation.setStartOffset(500);
+            animation.setDuration(250);
+            animation.setStartOffset(400);
             animation.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
@@ -124,8 +124,8 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
                     ScaleAnimation.RELATIVE_TO_SELF, 0.5f);
             animation.setFillEnabled(true);
             animation.setFillBefore(false);
-            animation.setDuration(500);
-            animation.setStartOffset(1000);
+            animation.setDuration(250);
+            animation.setStartOffset(650);
             return animation;
         }
     }
