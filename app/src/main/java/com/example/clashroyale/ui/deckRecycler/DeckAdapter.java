@@ -32,6 +32,8 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> im
     private List<CardView> mItems;
     private OnClickItemListener mOnClickItemListener;
     private final LinkedList<Action> mCollectCardsAnimations = new LinkedList<>();
+    private final LinkedList<Action> mIdleAnimations = new LinkedList<>();
+    private final Runnable mRunnable;
 
     public void setOnClickItemListener(@Nullable OnClickItemListener mOnClickItemListener) {
         this.mOnClickItemListener = mOnClickItemListener;
@@ -54,7 +56,9 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> im
         for(Action animation: mCollectCardsAnimations) {
             animation.execute();
         }
+        // Почистим анимации сбора карт и простоя
         mCollectCardsAnimations.clear();
+        mIdleAnimations.clear();
 
         clear = true;
         // Запустим отчистку RecyclerView с задержкой в 1 сек,
@@ -88,10 +92,26 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> im
     public DeckAdapter(Context context) {
         mContext = context;
         mItems = new ArrayList<>();
+
+        mRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (!mIdleAnimations.isEmpty()) {
+                    for (Action animation: mIdleAnimations) {
+                        animation.execute();
+                    }
+                }
+                Handler handler;
+                new Handler().postDelayed(mRunnable, 5000);
+            }
+        };
+        new Handler().postDelayed(mRunnable, 5000);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final MiniatureCardLayoutBinding mBinding;
+        // Показывает что сейчас проигрывается анимация, используется для анимации простоя
+        private boolean mIsAnimationStarted = false;
 
         public ViewHolder(@NonNull MiniatureCardLayoutBinding binding) {
             super(binding.getRoot());
@@ -108,6 +128,7 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> im
         }
 
         public void startCollectCardsAnimation() {
+            mIsAnimationStarted = true;
             int position = this.getAdapterPosition();
             Animation animation = new TranslateAnimation(
                     TranslateAnimation.RELATIVE_TO_SELF, 0,
@@ -119,11 +140,24 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> im
             animation.setStartOffset(position * 50);
             animation.setFillEnabled(true);
             animation.setFillAfter(true);
+            animation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) { }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    mIsAnimationStarted = false;
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) { }
+            });
 
             mBinding.getRoot().startAnimation(animation);
         }
 
         public void startDealCardsAnimation(int position) {
+            mIsAnimationStarted = true;
             ImageView cardShirt = mBinding.getRoot().findViewById(R.id.card_shirt);
             cardShirt.setVisibility(View.VISIBLE);
 
@@ -132,6 +166,18 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> im
             animationSet.addAnimation(getTurnCardPart1Animation());
             animationSet.addAnimation(getTurnCardPart2Animation());
             animationSet.setStartOffset(position * 50);
+            animationSet.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) { }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    mIsAnimationStarted = false;
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) { }
+            });
 
             mBinding.getRoot().startAnimation(animationSet);
         }
@@ -192,6 +238,29 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> im
             animation.setStartOffset(650);
             return animation;
         }
+
+        public void startIdleAnimation() {
+            if (mIsAnimationStarted)
+                return;
+
+            Animation animation = new ScaleAnimation(1.0f, 1.1f, 1.0f, 1.1f);
+            animation.setFillEnabled(true);
+            animation.setFillAfter(false);
+            animation.setDuration(100);
+
+            Animation animation2 = new ScaleAnimation(1.1f, 1.0f, 1.1f, 1.0f);
+            animation2.setFillEnabled(true);
+            animation2.setFillBefore(false);
+            animation2.setStartOffset(100);
+            animation2.setDuration(100);
+
+            AnimationSet animationSet = new AnimationSet(false);
+            animationSet.addAnimation(animation);
+            animationSet.addAnimation(animation2);
+            animationSet.setStartOffset(this.getAdapterPosition() * 100);
+
+            mBinding.getRoot().startAnimation(animationSet);
+        }
     }
 
     @NonNull
@@ -213,6 +282,7 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> im
 
         holder.startDealCardsAnimation(position);
         mCollectCardsAnimations.add(holder::startCollectCardsAnimation);
+        mIdleAnimations.add(holder::startIdleAnimation);
     }
 
     @Override
