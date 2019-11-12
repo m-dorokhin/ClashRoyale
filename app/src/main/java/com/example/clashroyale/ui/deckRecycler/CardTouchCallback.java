@@ -1,5 +1,7 @@
 package com.example.clashroyale.ui.deckRecycler;
 
+import android.graphics.Canvas;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,5 +42,29 @@ public class CardTouchCallback extends ItemTouchHelper.Callback {
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
         mAdapter.onItemDismiss(viewHolder.getAdapterPosition());
+    }
+
+    @Override
+    public void onChildDraw(
+            @NonNull Canvas c,
+            @NonNull RecyclerView recyclerView,
+            @NonNull RecyclerView.ViewHolder viewHolder,
+            float dX,
+            float dY,
+            int actionState,
+            boolean isCurrentlyActive) {
+        if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
+            viewHolder.itemView.setTranslationX(dX);
+            viewHolder.itemView.setTranslationY(dY);
+            if (isCurrentlyActive) {
+                viewHolder.itemView.setScaleX(1.1f);
+                viewHolder.itemView.setScaleY(1.1f);
+            } else {
+                viewHolder.itemView.setScaleX(1.0f);
+                viewHolder.itemView.setScaleY(1.0f);
+            }
+        } else  {
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+        }
     }
 }
