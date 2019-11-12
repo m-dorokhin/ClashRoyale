@@ -9,6 +9,8 @@ public class CardView {
     public String name;
     public String description;
     public int elixirCost;
+    public String arenaName;
+    public int victoryGold;
 
     public CardView() { }
 

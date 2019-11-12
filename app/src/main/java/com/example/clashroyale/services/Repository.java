@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import com.example.clashroyale.api.Api;
+import com.example.clashroyale.api.models.Arena;
 import com.example.clashroyale.models.CardView;
 import com.example.clashroyale.utilits.Action;
 import com.example.clashroyale.utilits.ActionT;
@@ -19,8 +20,9 @@ public class Repository {
     private final ImageLoader mImageLoader;
 
     private List<CardView> mCache = new ArrayList<>();
+    private List<Arena> mArenas = new ArrayList<>();
 
-    public Repository(Api api, ImageLoader imageLoader) {
+    public Repository(@NonNull Api api, ImageLoader imageLoader) {
         mApi = api;
         mImageLoader = imageLoader;
     }
@@ -31,13 +33,31 @@ public class Repository {
             @NonNull final Action error) {
         mCache = new ArrayList<>();
 
-        mApi.RandomDeck((cards) -> {
-            mCache = cards.stream()
-                    .map(card -> new CardView(card))
-                    .collect(Collectors.toList());
+        getArenas((arenas) -> {
+            mApi.RandomDeck((cards) -> {
+                mCache = cards.stream()
+                        .map((card) -> {
+                            CardView cardView = new CardView(card);
+                            cardView.arenaName = arenas.get(card.arena).name;
+                            cardView.victoryGold = arenas.get(card.arena).victoryGold;
+                            return cardView;
+                        })
+                        .collect(Collectors.toList());
 
-            mImageLoader.load(mCache, callback);
-        }, error);
+                mImageLoader.load(mCache, callback);
+            }, error);
+        });
+    }
+
+    public void getArenas(ActionT<List<Arena>> callback) {
+         if (mArenas.isEmpty()) {
+             mApi.Arenas((arenas) -> {
+                 mArenas = arenas;
+                 callback.execute(mArenas);
+             }, null);
+         } else {
+             callback.execute(mArenas);
+         }
     }
 
     public List<CardView> getDeck() {

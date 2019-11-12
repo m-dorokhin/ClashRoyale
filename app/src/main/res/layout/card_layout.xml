@@ -131,5 +131,67 @@
             android:textColor="@color/black"
             android:textSize="10sp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/information_about_arena"
+            android:textColor="@color/epic"
+            android:textSize="10sp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/supercell_magic_webfont"
+            android:layout_gravity="center_horizontal"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="270dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="08dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/arena"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                android:fontFamily="@font/supercell_magic_webfont"
+                android:layout_marginRight="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{card.arenaName}"
+                android:textSize="10sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/supercell_magic_webfont"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="270dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/victory_gold"
+                android:textSize="10sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/supercell_magic_webfont"
+                android:layout_marginRight="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{Integer.toString(card.victoryGold)}"
+                android:textSize="10sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/supercell_magic_webfont"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 </layout>

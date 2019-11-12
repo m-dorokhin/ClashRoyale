@@ -6,4 +6,7 @@
     <string name="type">Type:</string>
     <string name="network_is_not_available">Network is not available.</string>
     <string name="network_is_available">Network is available.</string>
+    <string name="information_about_arena">Information about arena:</string>
+    <string name="arena">Arena: </string>
+    <string name="victory_gold">Gold for victory: </string>
 </resources>
