@@ -136,6 +136,10 @@ public class DeckAnimator extends DefaultItemAnimator {
     @Override
     public boolean animateRemove(RecyclerView.ViewHolder holder) {
         Log.i(TAG, "animateRemove");
+
+        // Делаем карты не кликабильными
+        holder.itemView.setOnClickListener(null);
+
         int parentWidth = ((View)holder.itemView.getParent()).getWidth();
         int width = holder.itemView.getWidth();
         int height = holder.itemView.getHeight();
