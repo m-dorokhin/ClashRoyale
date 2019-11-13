@@ -10,6 +10,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.clashroyale.models.CardView;
+
+import java.util.List;
+
 public class DeckRecycler extends RecyclerView {
     private final static int COLUMN_COUNT = 4;
     private final static int IDLE_TIMEOUT = 5000;
@@ -66,5 +70,17 @@ public class DeckRecycler extends RecyclerView {
 
     public void setOnClickItemListener(@Nullable OnClickItemListener listener) {
         this.getAdapter().setOnClickItemListener(listener);
+    }
+
+    public void setItems(List<CardView> items) {
+        DeckAdapter adapter = getAdapter();
+        if (items.isEmpty()) {
+            adapter.removeItems();
+        } else {
+            if (adapter.getItemCount() > 0)
+                adapter.removeItems();
+
+            adapter.insertItems(items);
+        }
     }
 }

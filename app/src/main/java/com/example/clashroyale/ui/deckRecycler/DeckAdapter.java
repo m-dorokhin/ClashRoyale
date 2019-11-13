@@ -23,20 +23,19 @@ public class DeckAdapter extends RecyclerView.Adapter<CardHolder> implements Car
     private List<CardView> mItems;
     private OnClickItemListener mOnClickItemListener;
 
-    public void setOnClickItemListener(@Nullable OnClickItemListener mOnClickItemListener) {
+    void setOnClickItemListener(@Nullable OnClickItemListener mOnClickItemListener) {
         this.mOnClickItemListener = mOnClickItemListener;
     }
 
-    public void setItems(List<CardView> items) {
-        // Если пришёл пустой массив карт то удоляем содержимое
-        if (items.isEmpty()) {
-            int count = this.mItems.size();
-            this.mItems = items;
-            notifyItemRangeRemoved(0, count);
-        } else { // Иначи заполняем
-            this.mItems = items;
-            notifyItemRangeInserted(0, items.size());
-        }
+    void insertItems(List<CardView> items) {
+        this.mItems = items;
+        notifyItemRangeInserted(0, items.size());
+    }
+
+    void removeItems() {
+        int count = this.mItems.size();
+        this.mItems.clear();
+        notifyItemRangeRemoved(0, count);
     }
 
     public void onItemDismiss(int position) {

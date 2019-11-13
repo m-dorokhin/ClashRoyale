@@ -9,11 +9,11 @@ import java.util.List;
 public class DeckBindingAdapters {
     @BindingAdapter({"app:items"})
     public static void setItems(DeckRecycler view, List<CardView> items) {
-        view.getAdapter().setItems(items);
+        view.setItems(items);
     }
 
     @BindingAdapter({"app:onClickItem"})
     public static void setOnClickItemListener(DeckRecycler view, OnClickItemListener listener) {
-        view.getAdapter().setOnClickItemListener(listener);
+        view.setOnClickItemListener(listener);
     }
 }
