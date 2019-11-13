@@ -95,7 +95,6 @@ public class DeckAdapter extends RecyclerView.Adapter<CardHolder> implements Car
                         animation.execute();
                     }
                 }
-                Handler handler;
                 new Handler().postDelayed(mRunnable, 5000);
             }
         };
