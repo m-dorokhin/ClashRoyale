@@ -41,7 +41,6 @@ public class DeckViewModel extends AndroidViewModel {
         return mSnackMessage;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public DeckViewModel(
             @NonNull Application application,
             @NonNull Repository repository,
@@ -71,10 +70,7 @@ public class DeckViewModel extends AndroidViewModel {
         List<CardView> cachedCards = mRepository.getDeck();
         cards.set(cachedCards);
         if (cachedCards.size() > 0) {
-            averageElixir.set(cachedCards.stream()
-                    .mapToInt((card) -> card.elixirCost)
-                    .average()
-                    .getAsDouble());
+            averageElixir.set(getAverageElixir(cachedCards));
         } else {
             requestDeck();
         }
@@ -86,7 +82,6 @@ public class DeckViewModel extends AndroidViewModel {
         getApplication().unregisterReceiver(mNetStatusReceiver);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public void requestDeck() {
         if (requested.get() || !netAvailable.get())
             return;
@@ -99,10 +94,7 @@ public class DeckViewModel extends AndroidViewModel {
                 (receivedCards) -> {
                     cards.set(receivedCards);
                     requested.set(false);
-                    averageElixir.set(receivedCards.stream()
-                            .mapToInt((card) -> card.elixirCost)
-                            .average()
-                            .getAsDouble());
+                    averageElixir.set(getAverageElixir(receivedCards));
                 },
                 () -> {
                     mSnackMessage.setValue(getApplication()
@@ -118,5 +110,13 @@ public class DeckViewModel extends AndroidViewModel {
         intent.putExtra(CardActivity.EXTRA_CARD_NO, cardNo);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // Без этого флага не запускает
         context.startActivity(intent);
+    }
+
+    private static double getAverageElixir(List<CardView> cards) {
+        double elixirSum = 0;
+        for(CardView card: cards) {
+            elixirSum += card.elixirCost;
+        }
+        return elixirSum / (double) cards.size();
     }
 }

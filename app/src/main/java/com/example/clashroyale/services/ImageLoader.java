@@ -1,9 +1,6 @@
 package com.example.clashroyale.services;
 
-import android.os.Build;
 import android.util.Log;
-
-import androidx.annotation.RequiresApi;
 
 import com.example.clashroyale.models.CardView;
 import com.example.clashroyale.utilits.ActionT;
@@ -15,12 +12,11 @@ import java.util.List;
 public class ImageLoader {
     private int mCount = 0;
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public void load(List<CardView> cardViews, ActionT<List<CardView>> callback) {
         mCount = cardViews.size();
         Log.i("ImageLoader", "Image counts: " + mCount);
 
-        cardViews.stream().forEach(card -> {
+        for (CardView card: cardViews) {
             String url = card.getImageUrl();
             Picasso.get().load(url).fetch(new Callback() {
                 @Override
@@ -42,6 +38,6 @@ public class ImageLoader {
                         callback.execute(cardViews);
                 }
             });
-        });
+        }
     }
 }

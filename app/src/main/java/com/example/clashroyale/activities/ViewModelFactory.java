@@ -28,7 +28,6 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
         mNetStatusReceiver = netStatusReceiver;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
