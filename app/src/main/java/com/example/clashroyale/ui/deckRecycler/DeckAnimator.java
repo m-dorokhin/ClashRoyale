@@ -71,7 +71,7 @@ public class DeckAnimator extends DefaultItemAnimator {
         cardShirt.setVisibility(View.VISIBLE);
 
         Animation animation = DeckAnimationsHelper
-                .getDealCardsAnimation(position, () -> cardShirt.setVisibility(View.INVISIBLE));
+                .getDealCardsAnimation(() -> cardShirt.setVisibility(View.INVISIBLE));
         animation.setStartOffset(position * 50);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -104,7 +104,7 @@ public class DeckAnimator extends DefaultItemAnimator {
             if (DeckAdapter.IDLE_CHANGE.equals(cardItemHolderInfo.updateAction) && !this.isRunning()) {
                 int position = holder.getAdapterPosition();
                 Animation animation = DeckAnimationsHelper.getIdleAnimation();
-                animation.setStartOffset(position * 100);
+                animation.setStartOffset(position * 150);
                 animation.setAnimationListener(new Animation.AnimationListener() {
                     @Override
                     public void onAnimationStart(Animation animation) { }

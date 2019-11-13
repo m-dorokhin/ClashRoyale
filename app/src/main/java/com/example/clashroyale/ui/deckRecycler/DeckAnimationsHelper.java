@@ -8,27 +8,20 @@ import android.view.animation.TranslateAnimation;
 import com.example.clashroyale.utilits.Action;
 
 public class DeckAnimationsHelper {
-    public static Animation getDealCardsAnimation(int position, Action hideCardShirt) {
+    public static Animation getDealCardsAnimation(Action hideCardShirt) {
         AnimationSet animationSet = new AnimationSet(false);
-        animationSet.addAnimation(getDistributionCardAnimation(position));
+        animationSet.addAnimation(getDistributionCardAnimation());
         animationSet.addAnimation(getTurnCardPart1Animation(hideCardShirt));
         animationSet.addAnimation(getTurnCardPart2Animation());
         return animationSet;
     }
 
-    private static Animation getDistributionCardAnimation(int position) {
-        float posX = position % 4;
-        float posY = position > 3 ? 1 : 0;
-        // 168 = mBinding.getRoot().getWidth();
-        float fromXDelta = (float)(-1*posX-1)*168;
-        // 215 = mBinding.getRoot().getHeight();
-        float fromYDelta = (float)(-1*posY-1)*215;
-
+    private static Animation getDistributionCardAnimation() {
         Animation animation = new TranslateAnimation(
-                fromXDelta,
-                0,
-                fromYDelta,
-                0);
+                TranslateAnimation.RELATIVE_TO_PARENT, -1.0f,
+                TranslateAnimation.RELATIVE_TO_SELF, 0.0f,
+                TranslateAnimation.RELATIVE_TO_PARENT, -1.0f,
+                TranslateAnimation.RELATIVE_TO_SELF, 0.0f);
         animation.setDuration(400);
         return animation;
     }
@@ -72,13 +65,13 @@ public class DeckAnimationsHelper {
         Animation animation = new ScaleAnimation(1.0f, 1.1f, 1.0f, 1.1f);
         animation.setFillEnabled(true);
         animation.setFillAfter(false);
-        animation.setDuration(100);
+        animation.setDuration(150);
 
         Animation animation2 = new ScaleAnimation(1.1f, 1.0f, 1.1f, 1.0f);
         animation2.setFillEnabled(true);
         animation2.setFillBefore(false);
-        animation2.setStartOffset(100);
-        animation2.setDuration(100);
+        animation2.setStartOffset(150);
+        animation2.setDuration(150);
 
         AnimationSet animationSet = new AnimationSet(false);
         animationSet.addAnimation(animation);
