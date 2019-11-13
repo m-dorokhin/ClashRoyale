@@ -1,7 +1,6 @@
 package com.example.clashroyale.ui.deckRecycler;
 
 import android.content.Context;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -14,55 +13,30 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.clashroyale.R;
 import com.example.clashroyale.databinding.MiniatureCardLayoutBinding;
 import com.example.clashroyale.models.CardView;
-import com.example.clashroyale.utilits.Action;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
-public class DeckAdapter extends RecyclerView.Adapter<CardHolder> implements CardTouchHelperAdapter{
-    private final Context mContext;
+public class DeckAdapter extends RecyclerView.Adapter<CardHolder> implements CardTouchHelperAdapter {
+    public final static String IDLE_CHANGE = "idle_change";
     private List<CardView> mItems;
     private OnClickItemListener mOnClickItemListener;
-    private final LinkedList<Action> mCollectCardsAnimations = new LinkedList<>();
-    private final LinkedList<Action> mIdleAnimations = new LinkedList<>();
-    private final Runnable mRunnable;
 
     public void setOnClickItemListener(@Nullable OnClickItemListener mOnClickItemListener) {
         this.mOnClickItemListener = mOnClickItemListener;
     }
 
-    // Переменная в true указывает что анимация сбора карт запущена, а новая колода ещё на добавлена
-    // И надо будет произвести отчистку RecycleView
-    // В false отчистку RecycleView проводить не надо, так как уже добавлена новая колода
-    private boolean clear = false;
     public void setItems(List<CardView> items) {
-        // Если нет карт на экрани, то просто отобразим новую колоду
-        if (mCollectCardsAnimations.size() <= 0) {
+        // Если пришёл пустой массив карт то удоляем содержимое
+        if (items.isEmpty()) {
+            int count = this.mItems.size();
             this.mItems = items;
-            notifyDataSetChanged();
-            clear = false;
-            return;
+            notifyItemRangeRemoved(0, count);
+        } else { // Иначи заполняем
+            this.mItems = items;
+            notifyItemRangeInserted(0, items.size());
         }
-
-        // Если есть то покажим анимацию сбора карт
-        for(Action animation: mCollectCardsAnimations) {
-            animation.execute();
-        }
-        // Почистим анимации сбора карт и простоя
-        mCollectCardsAnimations.clear();
-        mIdleAnimations.clear();
-
-        clear = true;
-        // Запустим отчистку RecyclerView с задержкой в 1 сек,
-        // что бы успела отыграть анимация сбора карт
-        new Handler().postDelayed(() -> {
-            if (clear) {
-                this.mItems = items;
-                notifyDataSetChanged();
-            }
-        }, 1000);
     }
 
     public void onItemDismiss(int position) {
@@ -84,21 +58,7 @@ public class DeckAdapter extends RecyclerView.Adapter<CardHolder> implements Car
     }
 
     public DeckAdapter(Context context) {
-        mContext = context;
         mItems = new ArrayList<>();
-
-        mRunnable = new Runnable() {
-            @Override
-            public void run() {
-                if (!mIdleAnimations.isEmpty()) {
-                    for (Action animation: mIdleAnimations) {
-                        animation.execute();
-                    }
-                }
-                new Handler().postDelayed(mRunnable, 5000);
-            }
-        };
-        new Handler().postDelayed(mRunnable, 5000);
     }
 
     @NonNull
@@ -117,10 +77,6 @@ public class DeckAdapter extends RecyclerView.Adapter<CardHolder> implements Car
         if (mOnClickItemListener != null)
             holder.setOnClickItemListener(
                     (view) -> mOnClickItemListener.onClickItem(view, holder.getAdapterPosition()));
-
-        holder.startDealCardsAnimation(position);
-        mCollectCardsAnimations.add(holder::startCollectCardsAnimation);
-        mIdleAnimations.add(holder::startIdleAnimation);
     }
 
     @Override
