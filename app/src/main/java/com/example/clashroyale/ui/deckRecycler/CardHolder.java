@@ -10,6 +10,7 @@ import com.example.clashroyale.models.CardView;
 
 public class CardHolder extends RecyclerView.ViewHolder {
     private final MiniatureCardLayoutBinding mBinding;
+    public boolean onTop = false;
 
     public CardHolder(@NonNull MiniatureCardLayoutBinding binding) {
         super(binding.getRoot());

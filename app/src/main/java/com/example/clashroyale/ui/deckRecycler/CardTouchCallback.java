@@ -59,9 +59,11 @@ public class CardTouchCallback extends ItemTouchHelper.Callback {
             if (isCurrentlyActive) {
                 viewHolder.itemView.setScaleX(1.1f);
                 viewHolder.itemView.setScaleY(1.1f);
+                ((CardHolder)viewHolder).onTop = true;
             } else {
                 viewHolder.itemView.setScaleX(1.0f);
                 viewHolder.itemView.setScaleY(1.0f);
+                ((CardHolder)viewHolder).onTop = false;
             }
         } else  {
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);

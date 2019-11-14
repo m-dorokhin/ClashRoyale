@@ -41,6 +41,36 @@ public class DeckRecycler extends RecyclerView {
         }
     };
 
+    /**
+     * Устанавливает выбранный Drag элемент последним в очереди отрисовки
+     */
+    private final ChildDrawingOrderCallback mChildDrawingOrderCallback = (childCount, i) -> {
+        int onTopNumber = -1;
+        for (int j = 0; j <= i; j++) {
+            CardHolder cardHolder = (CardHolder) findViewHolderForAdapterPosition(j);
+            if (cardHolder.onTop) {
+                if (onTopNumber >= 0)
+                    throw new ChildDrawingOrderException("Только один элемент должен быть поверх остальных. (Параметр CardHolder.onTop = true)");
+                onTopNumber = j;
+            }
+        }
+
+        if (onTopNumber >= 0) {
+            if (i == childCount -1) {
+                return onTopNumber;
+            } else {
+                return i + 1;
+            }
+        }
+        return i;
+    };
+
+    public static class ChildDrawingOrderException extends RuntimeException {
+        public ChildDrawingOrderException(String message) {
+            super(message);
+        }
+    }
+
     public DeckRecycler(@NonNull Context context) {
         super(context);
 
@@ -68,6 +98,7 @@ public class DeckRecycler extends RecyclerView {
         ItemTouchHelper.Callback cardTouchCallback = new CardTouchCallback(this.getAdapter());
         ItemTouchHelper touchHelper = new ItemTouchHelper(cardTouchCallback);
         touchHelper.attachToRecyclerView(this);
+        setChildDrawingOrderCallback(mChildDrawingOrderCallback);
 
         this.setItemAnimator(new DeckAnimator());
         // Запускаем обработку анимации простоя
